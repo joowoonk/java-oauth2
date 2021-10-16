@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -195,6 +196,9 @@ public class UserController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+
+
     /**
      * Deletes a given user along with associated emails and roles
      * <br>Example: <a href="http://localhost:2019/users/user/14">http://localhost:2019/users/user/14</a>
@@ -202,6 +206,7 @@ public class UserController
      * @param id the primary key of the user you wish to delete
      * @return Status of OK
      */
+    @PreAuthorize(value = "hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/user/{id}")
     public ResponseEntity<?> deleteUserById(
             @PathVariable
