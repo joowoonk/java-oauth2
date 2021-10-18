@@ -36,9 +36,9 @@ public class UserModelApplication
 
     public static void main(String[] args)
     {
-        checkEnvironmentVariable("OAUTHCLIENTID");
-        checkEnvironmentVariable("OAUTHCLIENTSECRET");
-
+//        checkEnvironmentVariable("OAUTHCLIENTID");
+//        checkEnvironmentVariable("OAUTHCLIENTSECRET");
+//
         if (!stop)
         {
             ApplicationContext ctx = SpringApplication.run(com.lambdaschool.usermodel.UserModelApplication.class,

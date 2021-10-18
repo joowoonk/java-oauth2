@@ -45,7 +45,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler()); //Only OAtuh work this... others will be denied!
 
-        http.csrf().disable();
+        http.csrf().disable(); // verifying token from the host... usually this will be turned off, rare to turn it on but it's secured for sure
 
         http.headers().frameOptions().disable(); // required by H2
 
