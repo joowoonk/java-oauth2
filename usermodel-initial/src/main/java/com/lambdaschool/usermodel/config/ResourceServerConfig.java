@@ -1,6 +1,7 @@
 package com.lambdaschool.usermodel.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -34,12 +35,19 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/webjars/**",
                         "/createnewuser") // everyone has h2 access
                 .permitAll()
-                .antMatchers("/users/**")
-                .hasAnyRole("ADMIN","USER")
-                .antMatchers("/roles/**")
-                .hasAnyRole("DATA")
-                .antMatchers("/logout") // only those who has access tokens can run this
+                .antMatchers(HttpMethod.POST,"/users/**")
+                .hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE,"/users/**")
+                .hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/users/**")
+                .hasAnyRole("ADMIN")
+                .antMatchers("/users/**",
+                        "/useremails/**",
+                        "/oauth/revoke-token",
+                        "/logout")
                 .authenticated()
+                .antMatchers("roles/**")
+                .hasAnyRole("ADMIN")
                 .anyRequest().denyAll()
                 .and()
                 .exceptionHandling()
